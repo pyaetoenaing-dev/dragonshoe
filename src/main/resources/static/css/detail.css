@@ -1,0 +1,214 @@
+
+.close-icon {
+	display: none;
+	position: absolute;
+	right: -150px;
+	font-size: 18px;
+	width: 18px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #fff;
+	cursor: pointer;
+}
+
+.close-icon {
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.search-input:not(:placeholder-shown)+.close-icon {
+	display: block;
+}
+
+.container {
+	display: flex;
+	justify-content: flex-start;
+	width: 100%;
+	margin-top: 30px;
+}
+
+.saveData, .updateData {
+	width: 400px;
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	color: #fff;
+	margin-left: 60px;
+}
+
+.saveData {
+	margin-left: 40px;
+	margin-right: -40px;
+	margin-top: 30px;
+}
+
+.updateData {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: 0;
+	z-index: 1000;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+.forSearch {
+	width: auto;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	gap: 440px;
+}
+
+label {
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+input[type="number"], select {
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	color: #000;
+	box-sizing: border-box;
+	outline: 0;
+}
+
+
+.footer {
+	display: flex;
+	margin-top: 15px;
+}
+
+.btnBack, .btnExit {
+	background-color: #0A6847;
+	padding: 12px 0;
+	color: white;
+	width: 100%;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	font-size: 16px;
+	text-align: center;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btnExit {
+	padding: 10px 10px;
+	width: 160px;
+	background-color: #1e1e1e;
+	color: #fff;
+	transition: none;
+	border-bottom: 1px solid #fff;
+	border-top: 1px solid #fff;
+}
+
+.btnExit:hover {
+	border-color: #3ABEF9;
+	color: #fff;
+}
+
+.btnBack {
+	background-color: #373A40;
+	padding: 12px 0;
+	height: 50px;
+	margin-top:20px;
+}
+
+.btnSave:hover {
+	transform: translateY(-4px);
+	background-color: #3ABEF9;
+}
+
+.btnBack:hover {
+	text-decoration: none;
+	color: #fff;
+	transform: translateY(-4px);
+	background-color: #373A40;
+}
+
+.btn {
+	text-decoration: none;
+}
+
+.btn-danger {
+	background-color: #dc3545;
+	border-color: #dc3545;
+	color: #ffffff;
+}
+
+.btn-danger:hover {
+	background-color: #c82333;
+	border-color: #bd2130;
+}
+
+.btn-info {
+	background-color: #17a2b8;
+	border-color: #17a2b8;
+	color: #ffffff;
+}
+
+.btn-info:hover {
+	background-color: #138496;
+	border-color: #117a8b;
+}
+
+.table-container {
+	margin-left: -50px;
+	width: 850px;
+}
+
+.oknasr {
+	width: 25%;
+}
+
+.action-buttons {
+	margin-left: 20px;
+	display: flex;
+	justify-content: flex-start;
+	gap: 15px;
+}
+
+.action-buttons .btn {
+	padding: 10px 15px;
+	font-size: 1.2rem;
+}
+
+.inputData {
+	color: #000;
+}
+
+option {
+	color: #000;
+	background-color: #E4E4E4;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 1.4rem;
+	border-bottom: 1px solid #000;
+}
+
+.edit-form-container {
+	display: none;
+	background-color: #a8c8ff;
+ 	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	color: #fff;
+	margin-top: 20px;
+}
+
+.blurred {
+	filter: blur(5px);
+	pointer-events: none;
+}
+
+#editForm {
+    display: none;
+}

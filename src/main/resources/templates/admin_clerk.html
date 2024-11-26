@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" class="light-style customizer-hide" dir="ltr"
+	data-theme="theme-default" data-assets-path="../assets/"
+	data-template="vertical-menu-template-free">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<title>Admin Clerk - Dashboard</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon"
+	href="../assets/img/favicon/favicon.ico" />
+
+<!-- Fonts and Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
+	rel="stylesheet" />
+<link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+
+<!-- Core CSS -->
+<link th:href="@{/css/core.css}" rel="stylesheet" />
+<link th:href="@{/css/theme-default.css}" rel="stylesheet" />
+<link th:href="@{/css/demo.css}" rel="stylesheet" />
+
+<!-- Vendors CSS -->
+<link th:href="@{/css/page-auth.css}" rel="stylesheet" />
+<link th:href="@{/css/perfect-scrollbar.css}" rel="stylesheet" />
+
+<link th:href="@{/css/managerStyle.css}" rel="stylesheet" />
+
+<!-- Helpers -->
+<script src="js/helpers.js"></script>
+<script src="js/config.js"></script>
+</head>
+
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-custom">
+		<a class="navbar-brand" href="#"> <i class="fas fa-users-cog"></i>
+			Admin Clerk
+		</a>
+
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item"><a class="nav-link active"
+					th:action="@{/admin/clerk}"><i class="fas fa-box"></i> Products</a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/addProduct}"><i class="fas fa-plus-square"></i> Add
+						Products</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/addBrand}"><i
+						class="fas fa-tags"></i> Add Brands</a></li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/addProductDetail}"><i class="fas fa-info-circle"></i>Add
+						Product Details</a></li>
+			</ul>
+		</div>
+		<a class="btn logout-btn" th:href="@{/login}"> <i
+			class="fas fa-sign-out-alt"></i> Log Out
+		</a>
+	</nav>
+
+	<!-- Main Content -->
+	<div class="container-xxl py-4">
+
+
+		<form th:action="@{/admin/clerk}" method="get" class="forSearch"
+			style="margin-left: -1px">
+			<div class="search-container">
+				<input type="text" name="keyword" id="keyword" size="15"
+					th:value="${keyword}" placeholder="Search..." class="search-input"
+					oninput="toggleClearIcon()"> <a href="#"
+					onclick="clearSearch()"> <i class="fas fa-times-circle"
+					style="margin-left: -50px"></i>
+				</a>
+				<button class="search-button" onclick="search()">Search</button>
+			</div>
+
+		</form>
+
+
+
+		<div class="table-container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Brand Name</th>
+						<th>Photo</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody style="color: black;">
+					<tr th:each="product : ${listProduct}">
+						<td th:text="${product.productId}"></td>
+						<td th:text="${product.productName}"></td>
+						<td th:text="${product.type}"></td>
+						<td th:text="${product.brand.brandName}"></td>
+						<td><img th:src="${product.photosImagePath}" alt="No pic"
+							width="100" height="60" /></td>
+						<td>
+							<div class="action-buttons">
+								<a
+									th:href="@{/updateProduct/{productId}(productId=${product.productId})}"
+									class="btn btn-update">Update</a><a
+									th:href="@{/deleteProduct/{productId}(productId=${product.productId})}"
+									class="btn btn-remove">Remove</a> <a
+									th:href="@{/viewProductDetail/{productId}(productId=${product.productId})}"
+									class="btn btn-detail">Detail</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div th:if="${totalPages > 1}" class="pagination-container">
+			<ul class="pagination">
+				<li th:class="${currentPage == 1} ? 'disabled' : ''"><a
+					th:if="${currentPage != 1}"
+					th:href="@{'/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+					<span th:unless="${currentPage != 1}">Previous</span></li>
+				<li th:each="i: ${#numbers.sequence(1, totalPages)}"
+					th:class="${currentPage == i} ? 'active' : ''"><a
+					th:if="${currentPage != i}"
+					th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+					<span th:unless="${currentPage != i}">[[${i}]]</span></li>
+				<li th:class="${currentPage == totalPages} ? 'disabled' : ''">
+					<a th:if="${currentPage != totalPages}"
+					th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+					<span th:unless="${currentPage != totalPages}">Next</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<script>
+        function toggleClearIcon() {
+            const keywordInput = document.getElementById('keyword');
+            const clearIcon = document.getElementById('clearIcon');
+            clearIcon.style.display = keywordInput.value.trim() !== '' ? 'inline-block' : 'none';
+        }
+
+        function clearSearch() {
+            document.getElementById('keyword').value = '';
+            toggleClearIcon();
+        }
+    </script>
+</body>
+</html>

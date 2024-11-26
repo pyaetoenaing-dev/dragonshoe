@@ -1,0 +1,165 @@
+body {
+	font-family: 'Public Sans', Arial, sans-serif;
+	color: #333;
+	background-color: #f4f5f7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	padding: 20px;
+	background: linear-gradient(to bottom right, #4B0000, #800000, #4B0000);
+	border-radius: 8px;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.forProductImg {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	border-right: 1px solid #eee;
+}
+
+.imgProduct {
+	width: 200px;
+	height: 200px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+	object-fit: cover;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.forProductData {
+	max-width: 500px;
+	padding: 20px;
+}
+
+label {
+	font-weight: bold;
+	color: white;
+}
+
+.form-control {
+	color: black;
+	background-color: #f9f9f9;
+	border-radius: 4px;
+	font-size: 17px;
+}
+
+.form-group {
+	margin-bottom: 20px;
+	justify-content: space-between;
+	position: relative;
+}
+
+.inputData::placeholder {
+	font-size: 14px;
+	color: #aaa;
+}
+
+.saveBtn, .backBtn {
+	width: 220px;
+	height: 40px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	font-size: 17px;
+	font-weight: bold;
+	border-radius: 4px;
+	transition: background-color 0.3s ease;
+}
+
+.saveBtn {
+	background-color: #33b7f7;
+	color: #fff;
+}
+
+.backBtn {
+
+	text-decoration: none;
+	background-color: #52565f;
+	color: #fff;
+	text-align: center;
+	line-height: 40px;
+}
+
+.saveBtn:hover {
+	background-color: #4a95b7;
+}
+
+.backBtn:hover {
+	background-color: #686c77;
+}
+
+.form-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+}
+
+.form-group.full-width {
+	flex: 1 0 100%;
+}
+
+.forType {
+	display: flex;
+	gap: 10px;
+}
+
+input[type="radio"] {
+	margin-right: 8px;
+	cursor: pointer;
+}
+
+select {
+	font-size: 16px;
+}
+
+option {
+	color: #333;
+	background-color: #f4f5f7;
+	font-size: 15px;
+}
+
+.footer {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+}
+
+.form-group .form-control {
+	width: 300px;
+	border: none;
+	height: 30px;
+	position: absolute;
+	right: 50px;
+/* 	border: solid 1px #696cff; */
+}
+
+.forType {
+	width: 500px;
+	position: absolute;
+	left: 140px;
+	top: -1px;
+}
+
+#image {
+	text-align: center;
+	font-size: 16px;
+	line-height: 30px;
+}

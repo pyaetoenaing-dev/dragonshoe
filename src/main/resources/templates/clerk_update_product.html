@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Update Product</title>
+
+<link th:href="@{/css/update.css}" rel="stylesheet" />
+
+</head>
+<body>
+	<div class="container">
+		<div class="forProductImg">
+			<h3>Update Product</h3>
+			<img th:src="${product.photosImagePath}" class="imgProduct"
+				alt="Product Photo" /> <label>Img Source:</label> <label
+				th:text="${product.photos}"></label>
+		</div>
+		<div class="forProductData">
+			<form th:action="@{/updateProduct}" th:object="${product}"
+				method="post" enctype="multipart/form-data">
+				<div class="form-row">
+					<div class="form-group full-width">
+						<label for="productId">Product ID:</label> <input type="text"
+							id="productId" th:field="*{productId}"
+							class="form-control inputData" readonly="readonly" />
+					</div>
+					<div class="form-group full-width">
+						<label for="productName">Product Name:</label> <input type="text"
+							id="productName" th:field="*{productName}"
+							class="form-control inputData" placeholder="Enter product name"
+							required>
+					</div>
+					<div class="form-group full-width">
+						<label for="description">Description:</label> <input type="text"
+							id="description" th:field="*{description}"
+							class="form-control inputData" placeholder="Enter description"
+							required>
+					</div>
+					<div class="form-group full-width">
+						<label>Types:</label>
+						<div class="forType">
+							<label><input type="radio" name="type" th:field="*{type}"
+								th:value="Men" th:checked="${product.type == 'Men'}">
+								Men</label> <label><input type="radio" name="type"
+								th:field="*{type}" th:value="Women"
+								th:checked="${product.type == 'Women'}"> Women</label> <label><input
+								type="radio" name="type" th:field="*{type}" th:value="Kid"
+								th:checked="${product.type == 'Kid'}"> Kid</label>
+						</div>
+					</div>
+					<div class="form-group full-width">
+						<label for="image">Photo:</label> <input type="file" id="image"
+							name="image" accept="image/png, image/jpeg"
+							class="form-control inputData" required>
+					</div>
+					<div class="form-group full-width">
+						<label for="brand">Brand:</label> <select id="brand" name="brand"
+							class="form-control inputData" required>
+							<option th:each="brand : ${allBrands}"
+								th:value="${brand.brandId}" th:text="${brand.brandName}"
+								th:selected="${product.brand != null and product.brand.brandId == brand.brandId}"></option>
+						</select>
+					</div>
+					<div class="footer full-width">
+						<a th:href="@{/admin/clerk}" class="backBtn">Back</a>
+						<button type="submit" class="saveBtn">Update</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>User View Product Detail</title>
+    <style>
+        body {
+            background: linear-gradient(90deg, #dfefff, #b3e5fc);
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 80px;
+            background-color: #fff;
+            border-bottom: 1px solid #000;
+        }
+        
+        .logoContainer {
+			max-width: 320px;
+			display: flex;
+			align-items: center;
+		}
+
+		.logoContainer img {
+			width: 60px;
+			height: 60px;
+			margin-right: 10px;
+		}
+		
+		.linkContainer {
+			width: 200px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.linkContainer a {
+			text-decoration: none;
+			padding: 8px 0px;
+			padding-left: 25px;
+			padding-right: 25px;
+			color: #000;
+		}
+		
+		.linkContainer .active {
+			color: #C80036;
+			font-weight: bold;
+		}
+        
+        .search-container {
+			position: relative;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.search-input {
+			height:25px;
+			position: relative;
+			color: #000;
+			background-color: #ffffff;
+			border: 1px solid #000;
+			padding: 7px;
+			padding-left: 14px;
+			margin-right: 10px;
+			font-size: 14px;
+			border-radius: 13px;
+			width: 250px;
+			outline: none;
+		}
+		
+		.search-input::placeholder {
+			color: #000;
+			font-style:italic;
+		}
+		
+		.close-icon {
+			display: none;
+			position: absolute;
+			right: 45px;
+			font-size: 18px;
+			width: 18px;
+			top: 50%;
+			transform: translateY(-50%);
+			color: #45474B;
+			cursor: pointer;
+		}
+		
+		.search-input:not(:placeholder-shown)+.close-icon {
+			display: block;
+		}
+		
+		.cartLogo {
+			width: 35px;
+			height:35px;
+			position: relative;
+		}
+		
+		.userlogo{
+			width: 35px;
+			height:35px;
+			top: 0px;
+			margin-left:20px;
+			
+			position: absolute;
+		}
+		
+		.total-quantity {
+			position: absolute;
+			top: -5px;
+			right: -5px;
+			background-color: red;
+			color: white;
+			border-radius: 50%;
+			padding: 2px 4px;
+			font-size: 10px;
+		}
+       
+        
+        .detail-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 1100px;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 20px;
+        }
+        .img-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 50%;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e3f2fd;
+            border-radius: 15px;
+        }
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .text-container {
+            flex: 1;
+            max-width: 50%;
+            padding: 30px;
+            color: #444;
+        }
+        .text-container h2 {
+            color: #00796b;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .product-detail{
+        	font-size:23px;
+        	color:#00796b;
+        	margin-top:0;
+        	
+        }
+        .detail-item {
+            margin-bottom: 18px;
+            font-size: 1.1em;
+            display: flex;
+    		justify-content: space-between;
+    		padding: 10px 0;
+    		border-bottom: 1px solid #ddd;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #00796b;
+            margin-right: 10px;
+            
+        }
+        
+        .detail-item:last-child {
+    	border-bottom: none;
+		}
+        
+        
+        
+        .forQty{
+        	width: 50px;
+          	height: 35px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align:center;
+        }
+        
+        .inputData{
+            width: 200px;
+            height: 30px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            
+        }
+        .forBtns {
+            
+            margin-top: 20px;
+            
+        }
+        .btnBack, .btnATC {
+        	
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btnBack {
+       		
+            background-color: #6c757d;
+            color: #fff;
+            margin-right:20px;
+            margin-left:150px;
+            text-decoration:none;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        .btnATC {
+            background-color: #00796b;
+            color: #fff;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btnBack:hover {
+            background-color: #5a6268;
+           
+        }
+        .btnATC:hover {
+            background-color: #00695c;
+            
+        }
+       
+        
+    </style>
+</head>
+<body>
+    
+    <nav>
+		<div class="logoContainer">
+			<img src="/images/heellogo1.jpg" alt="Dragon Shoe"> <span
+				style="color: #800000; font-size: 25px; font-family: 'Pacifico', cursive;">Dragon
+				Shoe</span>
+
+		</div>
+		<div class="linkContainer">
+			<a href="/user/home">Home</a> 
+			<a href="/user/showProduct">Products</a> 
+			<a href="/user/history">History</a>
+		</div>
+		<form th:action="@{/user/home}" method="get">
+			<div class="search-container">
+				<input type="text" name="keyword" id="keyword" size="15"
+					th:value="${keyword}" placeholder="Search for shoes..." required
+					class="search-input" oninput="toggleClearIcon()"> 
+					<img src="/images/close.png" class="close-icon" alt="Close Logo"
+					id="clearIcon" onclick="clearSearch()">
+
+				<div class="addtocart-container">
+					<a href="/user/cart"> <img src="/images/shoppingbag.png"
+						class="cartLogo" alt="Cart Logo"> <span
+						class="total-quantity" th:text="${totalQuantity}"></span>
+					</a>
+				</div>
+				
+				<div>
+					<img src="/images/user.png" class="userlogo" alt="User">
+				</div>
+				
+			</div>
+		</form>
+	</nav>
+
+    <div class="detail-container">
+        <div class="img-container">
+            <img th:src="${product.photosImagePath}" alt="Product Image">
+        </div>
+        <div class="text-container">
+        	<div th:if="${error}" class="alert alert-danger" role="alert">
+	            <span th:text="${error}"></span>
+	        </div>
+	       	<h3 class="product-detail">Product Details</h3>
+            <div class="detail-item">
+                <span class="detail-label">Product Name:</span>
+                <span class="detail-value" th:text="${product.productName}">Product Name</span>
+               
+            </div>
+            
+            
+            <div class="detail-item">
+                <span class="detail-label">Description:</span>
+                <span class="detail-value" th:text="${product.description}" >Description</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Type:</span>
+                <span class="detail-value" th:text="${product.type}">Type</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Brand:</span>
+                <span class="detail-value" th:text="${product.brand.brandName}">Brand Name</span>
+            </div>
+            <!-- Add the new section for product details -->
+            <form th:action="@{/cart/add}" method="post">
+                <div class="detail-item">
+                    <span class="detail-label">Size and Price:</span>
+                    <div class="detail-value">
+                        <select id="sizeSelect" name="productDetailId" class="form-control inputData">
+                            <option th:each="detail : ${product.productDetails}" th:value="${detail.productDetailId}" th:text="${'Size ' + detail.sizeNo + ' - Price: ' + detail.price}"></option>
+                        </select>
+                        
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Quantity:</span>
+                    <input type="number" name="quantity" class="form-control forQty" min="1" max="10" value="1" required>
+                </div>
+                <input type="hidden" name="userId" th:value="${user.userId}">
+                <div class="forBtns">
+                	<a class="btnBack" th:href="@{/user/showProduct}">Back</a>
+                    <button type="submit" class="btnATC">Add to Cart</button>
+                    
+                </div>
+            </form>
+            
+        </div>
+    </div>
+
+    <script>
+        function clearSearch() {
+            document.getElementById('keyword').value = '';
+            toggleClearIcon();
+        }
+
+        function toggleClearIcon() {
+            var input = document.getElementById('keyword');
+            var icon = document.getElementById('clearIcon');
+            if (input.value) {
+                icon.style.display = 'block';
+            } else {
+                icon.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

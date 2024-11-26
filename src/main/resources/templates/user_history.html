@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>User History</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<style>
+body {
+	background: linear-gradient(90deg, #dfefff, #b3e5fc);
+	color: #333;
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 80px;
+	background-color: #fff;
+	border-bottom: 1px solid #000;
+}
+
+.logoContainer {
+	max-width: 320px;
+	display: flex;
+	align-items: center;
+}
+
+.logoContainer img {
+	width: 60px;
+	height: 60px;
+	margin-right: 10px;
+}
+
+.linkContainer {
+	width: 200px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.linkContainer a {
+	text-decoration: none;
+	padding: 8px 0px;
+	padding-left: 25px;
+	padding-right: 25px;
+	color: #000;
+}
+
+.linkContainer .active {
+	color: #C80036;
+	font-weight: bold;
+}
+
+.search-container {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.search-input {
+	height: 25px;
+	position: relative;
+	color: #000;
+	background-color: #ffffff;
+	border: 1px solid #000;
+	padding: 7px;
+	padding-left: 14px;
+	margin-right: 10px;
+	font-size: 14px;
+	border-radius: 13px;
+	width: 250px;
+	outline: none;
+}
+
+.search-input::placeholder {
+	color: #000;
+	font-style: italic;
+}
+
+.close-icon {
+	display: none;
+	position: absolute;
+	right: 45px;
+	font-size: 18px;
+	width: 18px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #45474B;
+	cursor: pointer;
+}
+
+.search-input:not(:placeholder-shown)+.close-icon {
+	display: block;
+}
+
+.cartLogo {
+	width: 35px;
+	height: 35px;
+	position: relative;
+}
+
+.userlogo {
+	width: 35px;
+	height: 35px;
+	top: 0px;
+	margin-left: 20px;
+	position: absolute;
+}
+
+.total-quantity {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+	background-color: red;
+	color: white;
+	border-radius: 50%;
+	padding: 2px 4px;
+	font-size: 10px;
+}
+
+.image-section {
+	width: 75%;
+}
+
+.image-section img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.text-section {
+	width: 25%;
+	background: linear-gradient(to bottom right, #4B0000, #800000, #4B0000);
+	color: #146B3A;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 35px;
+}
+
+.text-section h1 {
+	font-size: 40px;
+	margin-bottom: 20px;
+	font-family: 'Georgia', serif;
+}
+
+.text-section a {
+	font-size: 1.2rem;
+	color: #000;
+	text-decoration: underline;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.content-container {
+	max-width: 1100px;
+	margin: 30px auto;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+thead {
+	background-color: #111;
+	color: white;
+}
+
+thead th {
+	font-size: 1rem;
+	text-align: left;
+	padding: 10px;
+}
+
+tbody tr {
+	border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+	background-color: #eef5ff;
+}
+
+td {
+	padding: 10px;
+	font-size: 0.95rem;
+	color: #555;
+	text-align: left;
+	vertical-align: middle;
+}
+
+td img {
+	border-radius: 5px;
+	object-fit: cover;
+}
+
+.img-rounded {
+	border: 1px solid #ddd;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+	text-align: left;
+}
+
+th:first-child, td:first-child {
+	text-align: center;
+}
+
+th:last-child, td:last-child {
+	text-align: right;
+}
+
+@media ( max-width : 768px) {
+	table {
+		font-size: 0.85rem;
+	}
+	td img {
+		width: 80px;
+		height: 50px;
+	}
+}
+</style>
+</head>
+<body>
+	<nav>
+		<div class="logoContainer">
+			<img src="/images/heellogo1.jpg" alt="Dragon Shoe"> <span
+				style="color: #800000; font-size: 25px; font-family: 'Pacifico', cursive;">Dragon
+				Shoe</span>
+
+		</div>
+		<div class="linkContainer">
+			<a href="/user/home">Home</a> <a href="/user/showProduct">Products</a>
+			<a class="active" href="/user/history">History</a>
+		</div>
+		<form th:action="@{/user/history}" method="get">
+			<div class="search-container">
+				<input type="text" name="keyword" id="keyword" size="15"
+					th:value="${keyword}" placeholder="Search for shoes..." required
+					class="search-input" oninput="toggleClearIcon()"> <img
+					src="/images/close.png" class="close-icon" alt="Close Logo"
+					id="clearIcon" onclick="clearSearch()"
+					style="width: 15px; height: 15px; margin-right: 7px;">
+
+				<div class="addtocart-container">
+					<a href="/user/cart"> <img src="/images/shoppingbag.png"
+						class="cartLogo" alt="Cart Logo"> <span
+						class="total-quantity" th:text="${totalQuantity}"></span>
+					</a>
+				</div>
+
+				<div>
+					<img src="/images/user.png" class="userlogo" alt="User">
+				</div>
+
+			</div>
+		</form>
+	</nav>
+
+	<div class="content-container">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+
+					<th>Product IMG</th>
+					<th>Product Name</th>
+					<th>Size</th>
+					<th>Order Date</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Total Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="orderItem : ${listOrderItem}">
+
+					<td><img
+						th:src="${orderItem.productDetail.product.photosImagePath}"
+						class="img-rounded" alt="No pic" width="100" height="60" /></td>
+					<td th:text="${orderItem.productDetail.product.productName}"></td>
+					<td th:text="${orderItem.productDetail.sizeNo}"></td>
+					<td th:text="${orderItem.order.orderDate}"></td>
+					<td th:text="${orderItem.price}"></td>
+					<td th:text="${orderItem.quantity}"></td>
+					<td th:text="${orderItem.order.totalAmount}"></td>
+					
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+
+
+	<script>
+     
+
+        function toggleClearIcon() {
+            var keywordInput = document.getElementById('keyword');
+            var clearIcon = document.getElementById('clearIcon');
+
+            if (keywordInput.value.trim() !== '') {
+                clearIcon.style.display = 'inline-block'; 
+            } else {
+                clearIcon.style.display = 'block'; 
+            }
+        }
+
+        function clearSearch() {
+        	
+            var keywordInput = document.getElementById('keyword');
+            keywordInput.value = ''; 
+            toggleClearIcon();
+            window.location = "[[@{/user/history}]]";
+        }
+
+    </script>
+
+
+
+</body>
+</html>

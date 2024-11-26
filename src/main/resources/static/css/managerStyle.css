@@ -1,0 +1,317 @@
+body {
+	background-color: #f4f5f7;
+}
+
+.navbar {
+	background: linear-gradient(to bottom right, #4B0000, #800000, #4B0000);;
+	padding: 15px;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.card-header, .card-body {
+	padding: 20px;
+}
+
+.table-container {
+	margin-top: 30px;
+}
+
+.table {
+	background-color: #ffffff;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+}
+
+.table th {
+	background-color: #800000;
+	color: white;
+	text-transform: uppercase;
+	font-weight: 600;
+	padding: 12px;
+	font-size: 15px;
+}
+
+.table-container .table th {
+	color: #ffffff !important;
+}
+
+.table tbody tr:hover {
+	background-color: rgb(192, 192, 192);
+}
+
+.form-container label {
+	margin-right: 10px;
+	font-size: 16px;
+	color: #333;
+}
+
+.forTotalPrice {
+	font-size: 20px;
+	font-weight: bold;
+	color: #696cff;
+}
+
+.navbar-custom {
+	/* background-color: #2c3e50; */
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1000;
+	overflow: hidden;
+}
+
+.navbar-custom .navbar-brand {
+	color: #fff;
+	font-size: 20px !important;
+	font-weight: bold !important;
+	display: flex;
+	align-items: center;
+}
+
+.navbar-custom .navbar-brand i {
+	margin-right: 8px;
+	font-size: 24px;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+	color: #fff;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	padding: 8px 15px;
+	transition: background 0.3s;
+	border-radius: 5px;
+	font-weight: 500;
+}
+
+.navbar-custom .navbar-nav .nav-link i {
+	margin-right: 6px;
+	font-size: 18px;
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+	color: #fff;
+}
+
+.navbar-custom .navbar-nav .active {
+	background-color: rgba(255, 255, 255, 0.3);
+	color: #fff;
+}
+
+.navbar-custom .navbar-brand i, .navbar-custom .navbar-nav .nav-link i {
+	color: #f8b400;
+	margin-right: 8px;
+	font-size: 20px;
+}
+
+/* Search Form Styling */
+.forSearch {
+	margin: 20px 30px;
+	display: grid;
+}
+
+.search-container {
+	display: flex;
+	align-items: center;
+	position: relative;
+	width: 100%;
+	max-width: 600px;
+}
+
+.search-input {
+	flex: 1;
+	padding: 10px 40px 10px 15px;
+	font-size: 16px;
+	border-radius: 25px 0 0 25px;
+	border: 1px solid #ddd;
+	outline: none;
+	color: #333;
+	transition: border-color 0.3s;
+}
+
+.search-input:focus {
+	border-color: #007bff;
+}
+
+/* Close Icon Styling */
+.close-icon {
+	display: none;
+	position: absolute;
+	top: 50%;
+	right: 120px;
+	transform: translateY(-50%);
+	font-size: 18px;
+	color: #333;
+	cursor: pointer;
+	transition: color 0.3s;
+}
+
+.search-input:not(:placeholder-shown)+.close-icon {
+	display: block;
+}
+
+.close-icon:hover {
+	color: #007bff;
+}
+
+/* Search Button Styling */
+.search-button {
+	background-color: #800000;
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 0 25px 25px 0;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	transition: background-color 0.3s;
+}
+
+.search-button i {
+	margin-right: 5px;
+}
+
+.search-button:hover {
+	background-color: #4B0000;
+}
+
+.btn-update {
+	background-color: lightblue;
+	color: black;
+}
+
+.btn-remove {
+	margin-left: 3px;
+	background-color: #ff4848;
+	color: black;
+}
+
+.btn-detail {
+	background-color: #8080ff;
+	color: black;
+}
+
+.btn-update:hover {
+	background-color: #02b9c8;
+	color: #fff;
+}
+
+.btn-remove:hover {
+	background-color: #df0000;
+	color: #fff;
+}
+
+.btn-detail:hover {
+	background-color: #4a4aff;
+	color: #fff;
+}
+
+.table th, .table td {
+	border: 1px solid #cecece;
+	padding: 10px;
+	text-align: center;
+}
+
+/* Log Out Button Styling */
+.logout-btn {
+	display: inline-flex;
+	align-items: center;
+	padding: 10px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #ffffff;
+	background-color: rgb(233, 54, 54);
+	border: none;
+	border-radius: 5px;
+	text-decoration: none;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-btn i {
+	margin-right: 8px;
+	font-size: 18px;
+}
+
+/* Hover and Focus Effects */
+.logout-btn:hover {
+	background-color: rgb(206, 0, 0);
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.container-xxl {
+	margin-top: 70px;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pagination li {
+    margin: 0;
+}
+
+.pagination li a, .pagination li span {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination li a:hover {
+    background-color: #007bff;
+    color: #000000;
+}
+
+.pagination li.active span, 
+.pagination li.active a {
+    background-color: #007bff;
+    color: white;
+    cursor: default;
+}
+
+.pagination li.disabled span, 
+.pagination li.disabled a {
+    color: #ccc;
+    background-color: #f1f1f1;
+    cursor: not-allowed;
+}
+
+.pagination li.disabled span:hover, 
+.pagination li.disabled a:hover {
+    background-color: #f1f1f1;
+}
+
+.pagination li:not(.disabled):not(.active) a {
+    background-color: #ffffff;
+}
+
+.pagination li:not(.disabled):not(.active) a:hover {
+    background-color: #e9ecef;
+}
+

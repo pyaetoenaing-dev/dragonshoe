@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cart Items</title>
+
+<style>
+body {
+	font-family: 'Arial', sans-serif;
+	background: linear-gradient(90deg, #dfefff, #b3e5fc);
+	color: #333;
+	margin: 0;
+	padding: 0;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 80px;
+	background-color: #fff;
+	border-bottom: 1px solid #000;
+}
+
+.logoContainer {
+	max-width: 320px;
+	display: flex;
+	align-items: center;
+}
+
+.logoContainer img {
+	width: 60px;
+	height: 60px;
+	margin-right: 10px;
+}
+
+.linkContainer {
+	width: 200px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.linkContainer a {
+	text-decoration: none;
+	padding: 8px 0px;
+	padding-left: 25px;
+	padding-right: 25px;
+	color: #000;
+}
+
+.linkContainer .active {
+	color: #C80036;
+	font-weight: bold;
+}
+
+.search-container {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.search-input {
+	height: 25px;
+	position: relative;
+	color: #000;
+	background-color: #ffffff;
+	border: 1px solid #000;
+	padding: 7px;
+	padding-left: 14px;
+	margin-right: 10px;
+	font-size: 14px;
+	border-radius: 13px;
+	width: 250px;
+	outline: none;
+}
+
+.search-input::placeholder {
+	color: #000;
+	font-style: italic;
+}
+
+.close-icon {
+	display: none;
+	position: absolute;
+	right: 45px;
+	font-size: 18px;
+	width: 18px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #45474B;
+	cursor: pointer;
+}
+
+.search-input:not(:placeholder-shown)+.close-icon {
+	display: block;
+}
+
+.cartLogo {
+	width: 35px;
+	height: 35px;
+	position: relative;
+}
+
+.userlogo {
+	width: 35px;
+	height: 35px;
+	top: 0px;
+	margin-left: 20px;
+	position: absolute;
+}
+
+.total-quantity {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+	background-color: red;
+	color: white;
+	border-radius: 50%;
+	padding: 2px 4px;
+	font-size: 10px;
+}
+
+.empty-cart {
+	text-align: center;
+	padding: 50px;
+}
+
+.text-no-item {
+	color: #ff6b6b;;
+	font-size: 1.5rem;
+	
+}
+
+.container {
+	width: 750px;
+	max-width: 800px;
+	margin: 80px auto;
+	padding: 20px;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-title {
+	text-align: center;
+	font-size: 2rem;
+	margin-bottom: 10px;
+}
+
+.text-intro {
+	text-align: center;
+	font-size: 1rem;
+	margin-bottom: 20px;
+	color: #666;
+}
+
+.cart-container {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.cart-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 20px;
+	border-bottom: 2px solid #eee;
+	padding: 10px 0;
+}
+
+.product-image {
+	width: 130px;
+	height: 100px;
+	border-radius: 10px;
+}
+
+.cart-item-details {
+	flex-grow: 1;
+}
+
+.cart-item-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.product-name {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.btn-delete {
+	display: inline-block;
+	color: #ff4d4d; /* Bright red for visibility */
+	text-decoration: none;
+	font-size: 0.9rem;
+	font-weight: bold;
+	background-color: #fff;
+	padding: 8px 12px;
+	border: 1px solid #ff4d4d;
+	border-radius: 5px;
+	transition: all 0.3s ease;
+}
+
+.btn-delete:hover {
+	background-color: #ff4d4d; /* Red background on hover */
+	color: #fff; /* White text on hover */
+	border-color: #ff1a1a;
+	cursor: pointer;
+}
+
+.btn-delete:focus {
+	outline: none;
+	box-shadow: 0 0 5px rgba(255, 77, 77, 0.8);
+}
+
+.cart-item-size, .cart-item-type {
+	margin: 5px 0;
+	color: #555;
+}
+
+.quantity-form {
+	margin-top: 10px;
+}
+
+.quantity-select {
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+.total-price {
+	margin-top: 20px;
+	text-align: right;
+}
+
+.cart-summary {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.for-total-value {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.checkout-btn {
+	display: inline-block;
+	margin-top: 10px;
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.checkout-btn:hover {
+	background-color: #0056b3;
+}
+</style>
+</head>
+<body>
+
+	<nav>
+		<div class="logoContainer">
+			<img src="/images/heellogo1.jpg" alt="Dragon Shoe"> <span
+				style="color: #800000; font-size: 25px; font-family: 'Pacifico', cursive;">Dragon
+				Shoe</span>
+
+		</div>
+		<div class="linkContainer">
+			<a href="/user/home">Home</a> <a href="/user/showProduct">Products</a>
+			<a href="/user/history">History</a>
+		</div>
+		<form th:action="@{/user/home}" method="get">
+			<div class="search-container">
+				<input type="text" name="keyword" id="keyword" size="15"
+					th:value="${keyword}" placeholder="Search for shoes..." required
+					class="search-input" oninput="toggleClearIcon()"> <img
+					src="/images/close.png" class="close-icon" alt="Close Logo"
+					id="clearIcon" onclick="clearSearch()">
+
+				<div class="addtocart-container">
+					<a href="/user/cart"> <img src="/images/shoppingbag.png"
+						class="cartLogo" alt="Cart Logo"> <span
+						class="total-quantity" th:text="${totalQuantity}"></span>
+					</a>
+				</div>
+
+				<div>
+					<img src="/images/user.png" class="userlogo" alt="User">
+				</div>
+
+			</div>
+		</form>
+	</nav>
+
+
+
+	<div th:if="${totalQuantity == 0}" class="empty-cart">
+		<h1 class="text-no-item">Your cart is empty! Discover our
+			collection and find something you’ll love!</h1>
+	</div>
+
+	<div class="container" th:if="${totalQuantity > 0}">
+		<h1 class="cart-title">Cart Items</h1>
+		<p class="text-intro">Items in your cart aren’t reserved—complete
+			your checkout to claim them before they’re gone!</p>
+
+		<div class="cart-container">
+			<div th:each="cartItem : ${cartItems}" class="cart-item">
+				<img th:src="${cartItem.productDetail.product.photosImagePath}"
+					alt="Product Image" class="product-image">
+				<div class="cart-item-details">
+					<div class="cart-item-head">
+						<h3 class="product-name"
+							th:text="${cartItem.productDetail.product.productName}"></h3>
+						<div class="cart-item-price">
+							Price: <span
+								th:text="${cartItem.productDetail.price * cartItem.quantity}"></span>
+						</div>
+						<a
+							th:href="@{/deleteCart/{cartItemId}(cartItemId=${cartItem.cartItemId})}"
+							class="btn-delete"> Remove from cart </a>
+					</div>
+					<p class="cart-item-size">
+						Size: <span th:text="${cartItem.productDetail.sizeNo}"></span>
+					</p>
+					<p class="cart-item-type">
+						Brand: <span
+							th:text="${cartItem.productDetail.product.brand.brandName}"></span>
+					</p>
+					<form th:action="@{/cart/updateCartItem}" method="post"
+						class="quantity-form">
+						<input type="hidden" name="cartItemId"
+							th:value="${cartItem.cartItemId}"> <label for="quantity">Quantity:</label>
+						<select id="quantity" name="quantity"
+							onchange="this.form.submit()" class="quantity-select">
+							<option th:each="n : ${#numbers.sequence(1, 10)}" th:value="${n}"
+								th:text="${n}" th:selected="${n == cartItem.quantity}">
+							</option>
+						</select>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="total-price">
+			<h4>Order Summary</h4>
+			<div th:each="cartItem : ${cartItems}" class="cart-summary">
+				<span class="summary-product-name"
+					th:text="${cartItem.productDetail.product.productName}"></span> <span
+					class="summary-product-price"
+					th:text="${cartItem.productDetail.price}"></span>
+			</div>
+			<div class="for-total-value">
+				<span>Total Price:</span> <span th:text="${totalPrice}"
+					class="total-value"></span>
+			</div>
+			<a href="/user/checkout" class="checkout-btn">Checkout</a>
+		</div>
+	</div>
+</body>
+</html>

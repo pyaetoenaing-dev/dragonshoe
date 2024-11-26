@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <style>
+        body {
+            background: linear-gradient(90deg, #dfefff, #b3e5fc);
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 80px;
+            background-color: #fff;
+            border-bottom: 1px solid #000;
+        }
+        
+        .logoContainer {
+			max-width: 320px;
+			display: flex;
+			align-items: center;
+		}
+
+		.logoContainer img {
+			width: 60px;
+			height: 60px;
+			margin-right: 10px;
+		}
+		
+		.linkContainer {
+			width: 200px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.linkContainer a {
+			text-decoration: none;
+			padding: 8px 0px;
+			padding-left: 25px;
+			padding-right: 25px;
+			color: #000;
+		}
+		
+		.linkContainer .active {
+			color: #C80036;
+			font-weight: bold;
+		}
+        
+        .search-container {
+			position: relative;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.search-input {
+			height:25px;
+			position: relative;
+			color: #000;
+			background-color: #ffffff;
+			border: 1px solid #000;
+			padding: 7px;
+			padding-left: 14px;
+			margin-right: 10px;
+			font-size: 14px;
+			border-radius: 13px;
+			width: 250px;
+			outline: none;
+		}
+		
+		.search-input::placeholder {
+			color: #000;
+			font-style:italic;
+		}
+		
+		.close-icon {
+			display: none;
+			position: absolute;
+			right: 45px;
+			font-size: 18px;
+			width: 18px;
+			top: 50%;
+			transform: translateY(-50%);
+			color: #45474B;
+			cursor: pointer;
+		}
+		
+		.search-input:not(:placeholder-shown)+.close-icon {
+			display: block;
+		}
+		
+		.cartLogo {
+			width: 35px;
+			height:35px;
+			position: relative;
+		}
+		
+		.userlogo{
+			width: 35px;
+			height:35px;
+			top: 0px;
+			margin-left:20px;
+			
+			position: absolute;
+		}
+		
+		.total-quantity {
+			position: absolute;
+			top: -5px;
+			right: -5px;
+			background-color: red;
+			color: white;
+			border-radius: 50%;
+			padding: 2px 4px;
+			font-size: 10px;
+		}
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .header-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-form h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .header-form p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .containerItem {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .user-form{
+        	width: 430px;
+            max-width: 48%;
+        }
+        
+        .cart-container{
+        	width: 500px;
+            max-width: 48%;
+        }
+
+        .user-form, .cart-container {
+            
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .forContact h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .textInfo {
+            width: 400px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btnOrder {
+            display: block;
+            width: 420px;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btnOrder:hover {
+            background-color: #218838;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-head h3 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #007bff;
+        }
+
+        .cart-item-size, .cart-item-type, .cart-item-qty, .cart-item-price {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .cart-container {
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        
+        .order-summary {
+            background: #f1f5f8;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .order-summary h4 {
+            font-size: 1.4rem;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .order-summary .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .order-summary .total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        @media (max-width: 768px) {
+            .user-form, .cart-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+	<nav>
+		<div class="logoContainer">
+			<img src="/images/heellogo1.jpg" alt="Dragon Shoe"> <span
+				style="color: #800000; font-size: 25px; font-family: 'Pacifico', cursive;">Dragon
+				Shoe</span>
+
+		</div>
+		<div class="linkContainer">
+			<a class="active" href="/user/home">Home</a> <a
+				href="/user/showProduct">Products</a> <a href="/user/history">History</a>
+		</div>
+		<form th:action="@{/user/home}" method="get">
+			<div class="search-container">
+				<input type="text" name="keyword" id="keyword" size="15"
+					th:value="${keyword}" placeholder="Search for shoes..." required
+					class="search-input" oninput="toggleClearIcon()"> 
+					<img src="/images/close.png" class="close-icon" alt="Close Logo"
+					id="clearIcon" onclick="clearSearch()" style="width:15px; height:15px; margin-right:6px;">
+
+				<div class="addtocart-container">
+					<a href="/user/cart"> <img src="/images/shoppingbag.png"
+						class="cartLogo" alt="Cart Logo"> <span
+						class="total-quantity" th:text="${totalQuantity}"></span>
+					</a>
+				</div>
+				
+				<div>
+					<img src="/images/user.png" class="userlogo" alt="User">
+				</div>
+				
+			</div>
+		</form>
+	</nav>
+
+    <div class="container">
+        <div class="header-form">
+            <h1>Check Out</h1>
+            
+        </div>
+
+        <div class="containerItem">
+            <div class="user-form">
+                <form action="/place" method="post">
+                    <div class="forContact">
+                        <h4>Contact</h4>
+                        
+                    </div>
+                    <input class="textInfo" type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                    <input class="textInfo" type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                    <input class="textInfo" type="email" id="email" name="email" placeholder="Email" required>
+                    <input class="textInfo" type="tel" id="phNo1" name="phNo1" placeholder="Contact No 1" required>
+                    <input class="textInfo" type="tel" id="phNo2" name="phNo2" placeholder="Contact No 2">
+                    <input class="textInfo" type="text" id="address" name="address" placeholder="Address" required>
+                	<button class="btnOrder" type="submit">Place Order</button>
+                </form>
+            </div>
+
+            <div class="cart-container">
+                <div th:each="cartItem : ${cartItems}" class="cart-item">
+                    <img th:src="${cartItem.productDetail.product.photosImagePath}" alt="Product Image">
+                    <div class="cart-item-details">
+                        <div class="cart-item-head">
+                            <h3 th:text="${cartItem.productDetail.product.productName}"></h3>
+                        </div>
+                        <p class="cart-item-size">Size: <span th:text="${cartItem.productDetail.sizeNo}"></span></p>
+                        <p class="cart-item-type">Brand: <span th:text="${cartItem.productDetail.product.brand.brandName}"></span></p>
+                        <p class="cart-item-qty">Quantity: <span th:text="${cartItem.quantity}"></span></p>
+                        <p class="cart-item-price">Price: <span th:text="${cartItem.productDetail.price * cartItem.quantity}"></span></p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="order-summary">
+            <h4>Order Summary</h4>
+            <div th:each="cartItem : ${cartItems}" class="summary-row">
+                <span th:text="${cartItem.productDetail.product.productName}"></span>
+                <span th:text="${cartItem.productDetail.price * cartItem.quantity}"></span>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span th:text="${totalPrice}"></span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

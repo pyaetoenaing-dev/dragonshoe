@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" class="light-style customizer-hide" dir="ltr"
+	data-theme="theme-default" data-assets-path="../assets/"
+	data-template="vertical-menu-template-free">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<title>User Registration</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon"
+	href="../assets/img/favicon/favicon.ico" />
+
+<!-- Fonts -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
+	rel="stylesheet" />
+
+<!-- Icons -->
+<link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+
+<!-- Core CSS -->
+<link th:href="@{/css/core.css}" rel="stylesheet" />
+<link th:href="@{/css/theme-default.css}" rel="stylesheet" />
+<link th:href="@{/css/page-auth.css}" rel="stylesheet" />
+
+<style>
+body {
+	background: linear-gradient(to bottom right, #4B0000, #800000, #4B0000);
+}
+</style>
+</head>
+
+<body>
+	<!-- Content -->
+	<div class="container-xxl">
+		<div class="authentication-wrapper authentication-basic container-p-y">
+			<div class="authentication-inner">
+				<!-- Register Card -->
+				<div class="card" style="width: 450px;">
+					<div class="card-body">
+						<div class="app-brand justify-content-center">
+							<span style="font-size: 22px; color: #4B0000; font-weight: bold; text-transform: capitalize; margin-top:14px;">Account
+								Registration</span>
+						</div>
+
+
+
+						<!-- Registration Form -->
+						<form id="formAuthentication" class="mb-3" method="post"
+							th:action="@{/registerUser}" th:object="${user}">
+							<div class="mb-3">
+								<label for="firstname" class="form-label" style="color:#333333; font-size:13px; font-weight:bold;">First Name</label> <input
+									type="text" class="form-control" id="firstname"
+									name="firstName" placeholder="Enter first name here..." required
+									th:field="*{firstName}" />
+							</div>
+							<div class="mb-3">
+								<label for="lastname" class="form-label" style="color:#333333; font-size:13px; font-weight:bold;">Last Name</label> <input
+									type="text" class="form-control" id="lastname" name="lastName"
+									placeholder="Enter last name here..." required th:field="*{lastName}" />
+							</div>
+							<div class="mb-3">
+								<label for="email" class="form-label" style="color:#333333; font-size:13px; font-weight:bold;">Email</label> <input
+									type="email" class="form-control" id="email" name="email"
+									placeholder="Enter email here..." required th:field="*{email}" />
+							</div>
+							<div class="mb-3">
+								<label for="password" class="form-label" style="color:#333333; font-size:13px; font-weight:bold;">Password</label> <input
+									type="password" class="form-control" id="password"
+									name="password" placeholder="Enter password here..." required
+									th:field="*{password}" />
+							</div>
+							<div class="mb-3">
+								<label for="phone" class="form-label" style="color:#333333; font-size:13px; font-weight:bold;">Phone</label> <input
+									type="tel" class="form-control" id="phone" name="phone"
+									placeholder="Enter phone number here..." required th:field="*{phNo}" />
+							</div>
+							<div class="mb-3">
+								<label for="address" class="form-label" style="color:#333333; font-size:13px; font-weight:bold;">Address</label> <input
+									type="text" class="form-control" id="address" name="address"
+									placeholder="Enter address here..." required th:field="*{address}" />
+							</div>
+							<button type="submit" class="btn btn-primary d-grid w-100" style="background: linear-gradient(to right, #800000, #8B0000, #B22222); border: none; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);">Sign
+								up</button>
+						</form>
+
+						<p class="text-center">
+							<span style="color:black; font-weight:bold;">Already have an account?</span> 
+							<a th:href="@{/login}"><span style= "color:#4B0000; text-decoration:underline; font-weight:bold;">Log in here</span></a>
+						</p>
+					</div>
+				</div>
+				<!-- /Register Card -->
+			</div>
+		</div>
+	</div>
+	<!-- /Content -->
+
+	<!-- Core JS -->
+	<script src="../assets/vendor/libs/jquery/jquery.js"></script>
+	<script src="../assets/vendor/js/bootstrap.js"></script>
+	<script src="../assets/js/main.js"></script>
+</body>
+</html>

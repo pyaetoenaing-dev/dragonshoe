@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>Admin Clerk - Add Brand</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link th:href="@{/css/core.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme-default.css}" rel="stylesheet" />
+    <link th:href="@{/css/demo.css}" rel="stylesheet" />
+
+    <!-- Vendors CSS -->
+    <link th:href="@{/css/page-auth.css}" rel="stylesheet" />
+    <link th:href="@{/css/perfect-scrollbar.css}" rel="stylesheet" />
+    
+    <link th:href="@{/css/managerStyle.css}" rel="stylesheet" />
+    <link th:href="@{/css/cleckStyle.css}" rel="stylesheet" />
+    
+
+    <!-- Helpers -->
+    <script src="js/helpers.js"></script>
+    <script src="js/config.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-users-cog"></i> Admin Clerk
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/clerk}"><i class="fas fa-box"></i> Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/addProduct}"><i class="fas fa-plus-square"></i> Add Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/addBrand}"><i class="fas fa-tags"></i> Add Brands</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/addProductDetail}"><i class="fas fa-info-circle"></i>Add Product Details</a>
+                </li>
+            </ul>
+        </div>
+        <a class="btn logout-btn" th:href="@{/login}"> <i class="fas fa-sign-out-alt"></i> Log Out</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-xxl py-4" style="margin-top: 100px;">
+        <div class="data-container">
+            <h1 style="color:#800000">Add Brand</h1>
+            <form th:action="@{/saveBrand}" th:object="${brand}" method="post" enctype="multipart/form-data" class="form-inline">
+    			<label for="price" style="margin-bottom: 20px">Brand Name:</label>
+                <input type="text" id="brandName" th:field="*{brandName}" class="form-control" placeholder="Enter Brand Name" required>
+                <button type="submit" class="btn-save btnSave">Save Brand</button>
+            </form>
+        </div>
+        
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody style="color:black;">
+                    <tr th:each="brand : ${listBrand}">
+                        <td th:text="${brand.brandId}"></td>
+                        <td th:text="${brand.brandName}"></td> 
+                        <td>
+                            <div class="action-buttons">
+                                <a href="#" class="btn update-btn" th:attr="data-brand-id=${brand.brandId}" style="background:lightblue; color:black;">Update</a>
+                                <a th:href="@{/deleteBrand/{brandId}(brandId=${brand.brandId})}" class="btn delete-btn" style="background:#ff4848; color:black;">Remove</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Edit Form Modal -->
+        <div class="edit-form-container" id="editForm">
+	            <form th:action="@{/updateBrand}" th:object="${brand}" method="post" enctype="multipart/form-data">
+	            	<div class="forHeader">
+	            		<h4>Update</h4>
+	            		<i class="fas fa-times close-icon" id="clearIcon" onclick="window.location.href='/addBrand'" ></i>
+	            		
+	            	</div>
+	            	<div class="forUpdate">
+	            		
+		                <input type="hidden" id="updateBrandId" th:name="brandId" />
+		                <input type="text" id="updateBrandName" th:field="*{brandName}" class="form-control inputData" placeholder="Enter Brand Name" required>
+		                <a th:href="@{/addBrand}" class="btn btnBack">Back</a>
+		                <button type="submit" class="btn-save" style="margin-top: 20px">Update Brand</button>
+	            	</div>
+	            </form>
+	        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.update-btn').click(function(e) {
+                e.preventDefault();
+                
+                var brandId = $(this).data('brand-id');
+                var brandName = $(this).closest('tr').find('td:eq(1)').text(); 
+                
+                $('#updateBrandId').val(brandId);
+                $('#updateBrandName').val(brandName);
+                
+                $('.data-container').addClass('blurred');
+                $('.table-container').addClass('blurred');
+                $('#editForm').show();
+            });
+        });
+
+        function closeEditForm() {
+            $('#editForm').hide();
+        }
+    </script>
+</body>
+</html>

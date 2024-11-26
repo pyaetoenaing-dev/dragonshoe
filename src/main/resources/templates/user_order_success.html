@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Order Success</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 50px;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 650px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        .container::before {
+            content: "✓";
+            font-size: 50px;
+            color: #28a745;
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            border-radius: 50%;
+            padding: 5px 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #28a745;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .details {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .highlight {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #800000;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .button:hover {
+            background-color: #4B0000;
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: #fff;
+        }
+        .icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Confirmed!</h1>
+        <div class="details">
+            <p class="icon">🎉</p>
+            <p>Thank you, <span class="highlight" th:text="${userName}"></span>! We’ve successfully received your order.</p>
+            <p>Your items are being prepared and will be shipped shortly. We’re excited to get them to you soon!</p>
+            <a href="/user/home" class="button">Return to Home</a>
+        </div>
+    </div>
+</body>
+</html>
